@@ -30,28 +30,28 @@ class App extends Component {
     super(props);  
     this.state = { 
       counter: 1,
-      intervalId : '' 
+      // intervalId : '' 
     }
-    this.timer=this.timer.bind(this);
+    // this.timer=this.timer.bind(this);
 
   }
-  componentDidMount(){
-    const intervalId = setInterval(
-      this.timer,5000
-    );
-    this.setState({intervalId : intervalId});
-  }
-  timer(){
-    const counter = this.state.counter;
-    this.setState({ 
-      counter : counter + 100
-    });
+  // componentDidMount(){
+  //   const intervalId = setInterval(
+  //     this.timer,5000
+  //   );
+  //   this.setState({intervalId : intervalId});
+  // }
+  // timer(){
+  //   const counter = this.state.counter;
+  //   this.setState({ 
+  //     counter : counter + 100
+  //   });
     
-  }
+  // }
 
-  componentWillUnmount(){
-    clearInterval(this.state.intervalId)
-  }
+  // componentWillUnmount(){
+  //   clearInterval(this.state.intervalId)
+  // }
   render(){
     console.log(this.state.counter);
     
@@ -59,9 +59,9 @@ class App extends Component {
     <div className="App">
       <div id="toor"></div>
       <h1>{this.state.counter}</h1>
-      <Welcome left={this.state.counter} top="200"></Welcome>
-      <Welcome left="300" top="200"></Welcome>
-      <Welcome left="500" top="500"></Welcome>
+      <Welcome initialHor={this.state.counter} delay={5000} initialVert={200}></Welcome>
+      <Welcome initialHor={300} delay={1000} initialVert={200}></Welcome>
+      <Welcome initialHor={500} delay={3000} initialVert={200}></Welcome>
       <div className="play">
       <BouncyDiv>
       <img src="https://picsum.photos/300/200/?random" />
