@@ -29,22 +29,47 @@ class App extends Component {
   constructor(props) {  
     super(props);  
     this.state = { 
-      counter: 1 
-    };
+      counter: 1,
+      intervalId : '' 
+    }
+    this.timer=this.timer.bind(this);
+
+  }
+  componentDidMount(){
+    const intervalId = setInterval(
+      this.timer,5000
+    );
+    this.setState({intervalId : intervalId});
+  }
+  timer(){
+    const counter = this.state.counter;
+    this.setState({ 
+      counter : counter + 100
+    });
+    
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.state.intervalId)
   }
   render(){
+    console.log(this.state.counter);
     
   return (
     <div className="App">
       <div id="toor"></div>
+      <h1>{this.state.counter}</h1>
+      <Welcome left={this.state.counter} top="200"></Welcome>
+      <Welcome left="300" top="200"></Welcome>
+      <Welcome left="500" top="500"></Welcome>
       <div className="play">
       <BouncyDiv>
       <img src="https://picsum.photos/300/200/?random" />
       </BouncyDiv>
       </div>
-      <FadeInDiv>
+      {/* <FadeInDiv>
         <h1>Hello</h1>
-      </FadeInDiv>
+      </FadeInDiv> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
