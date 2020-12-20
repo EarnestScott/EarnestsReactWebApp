@@ -1,10 +1,51 @@
 import logo from './logo.svg';
 import './App.css';
+import {React, Component} from "react";
 
-function App() {
+// import FadeOutLeftDiv from './FadeOut'
+import styled, { keyframes } from "styled-components";
+import {bounce} from "react-animations";
+import {fadeIn} from "react-animations";
+import Welcome from './Welcome';
+import './test.css'
+const bounceAnimation = keyframes`${bounce}`;
+const BouncyDiv = styled.div`
+  animation: infinite 5s ${bounceAnimation};
+  position: absolute;
+  left: 500px;
+  top: 500px;
+
+`;
+const fadeInAnimation = keyframes`${fadeIn}`;
+const FadeInDiv = styled.div`
+  animation: infinite 5s ${fadeInAnimation};
+  position: absolute;
+  left: 500px;
+  top: 500px;
+
+`;
+class App extends Component {
+
+  constructor(props) {  
+    super(props);  
+    this.state = { 
+      counter: 1 
+    };
+  }
+  render(){
+    
   return (
     <div className="App">
-      <header className="App-header">
+      <div id="toor"></div>
+      <div className="play">
+      <BouncyDiv>
+      <img src="https://picsum.photos/300/200/?random" />
+      </BouncyDiv>
+      </div>
+      <FadeInDiv>
+        <h1>Hello</h1>
+      </FadeInDiv>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -17,9 +58,9 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
-
+}
 export default App;
