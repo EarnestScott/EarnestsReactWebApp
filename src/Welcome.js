@@ -9,6 +9,10 @@ const getDiv = (left, top) => {
     position: absolute;
     left: ${left}px;
     top: ${top}px;
+    font-size: 9px;
+    width: 200px;
+    height: 200px;
+    transform: rotate(45deg);
   
   `;
   return FadeInDiv;
@@ -52,11 +56,12 @@ class Welcome extends Component {
 
   render() {
 
+
     const FadeInDiv = getDiv(this.state.horizontal, this.state.vertical);
 
     return (
       <FadeInDiv>
-        <h1>Hello Earnest!:D</h1>
+        <h1>{this.props.message}</h1>
       </FadeInDiv>
     );
   }
