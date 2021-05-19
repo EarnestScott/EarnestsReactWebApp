@@ -1,83 +1,52 @@
 import logo from './logo.svg';
+import React, { useState } from 'react';
+import earnest from './coachella_copy.jpg';
+import derpPic from './derpPic.jpg'
 import './App.css';
-import { React, Component } from "react";
-import ButtonAppBar from './components/ButtonAppBar'
-// import FadeOutLeftDiv from './FadeOut'
-import styled, { keyframes } from "styled-components";
-import { bounce } from "react-animations";
-import { fadeIn } from "react-animations";
-import Welcome from './Welcome';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme2 from './components/theme';
-import './test.css'
-const bounceAnimation = keyframes`${bounce}`;
-const BouncyDiv = styled.div`
-  animation: infinite 5s ${bounceAnimation};
-  position: absolute;
-  left: 500px;
-  top: 500px;
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+function App() {
+    const [showDerpPic, setShowDerpPic] = useState(false);
 
-`;
-const fadeInAnimation = keyframes`${fadeIn}`;
-const FadeInDiv = styled.div`
-  animation: infinite 5s ${fadeInAnimation};
-  position: absolute;
-  left: 500px;
-  top: 500px;
-
-`;
-class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: 1,
-    }
-
-  }
-
-  render() {
-    console.log(this.state.counter);
-    const quotes = ["Everything is limiting beliefs and self-fulfilling prophecies.\n\t\t-Earnest Scott",
-      "Virtually everything we do is to change the way we feel\n\t\tAwaken the Giant Within\n\t\t-Tony Robbins",
-      "Life is a gift and it offers us the privilege, opportunity, and responsibility to give something back by becoming something more.\n\t\tAwaken the Giant Within\n\t\t-Tony Robbins",
-      "We are not driven by the reality but by our perception of reality\n\t\tAwaken the Giant Within\n\t\t-Tony Robbins",
-      "Nothing in Life has any meaning except the meaning you give it.\n\t\tAwaken the Giant Within\n\t\t-Tony Robbins",
-    ];
-    Math.round(Math.random() * (quotes.length - 1))
 
     return (
-      <div className="App">
-        <div id="toor">
-          <ThemeProvider theme={theme2}>
-            <ButtonAppBar />
+        <div className="App">
+            <Jumbotron fluid>
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <h1>Earnest Scott</h1>
 
-          </ThemeProvider>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h3>The man, the myth, the legend</h3>
 
+                    </Row>
+                    <br />
+                    <br />
+                    <br />
+
+                    <Row>
+                        <Col sm={6}>
+                            <Card style={showDerpPic ? { padding: '5px', transform: 'rotate(45deg)' } : { padding: '5px', }} >
+                                <Card.Img onMouseEnter={() => setShowDerpPic(true)} onMouseLeave={() => setShowDerpPic(false)} src={showDerpPic ? derpPic : earnest} />
+                            </Card>
+                        </Col>
+                        <Col sm={6}>
+                            <h2>Who is Earnest Scott?</h2>
+                            <p>Epluribus enum</p>
+                        </Col>
+                    </Row>
+
+                </Container>
+
+            </Jumbotron>
         </div>
-        {/* <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              News
-    </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar> */}
-        <h1>Earnest Scott</h1>
-        <Welcome message={quotes[Math.round(Math.random() * (quotes.length - 1))]} initialHor={this.state.counter} delay={5000} initialVert={200}></Welcome>
-        <Welcome message={quotes[Math.round(Math.random() * (quotes.length - 1))]} initialHor={300} delay={1000} initialVert={200}></Welcome>
-        <Welcome message={quotes[Math.round(Math.random() * (quotes.length - 1))]} initialHor={500} delay={3000} initialVert={200}></Welcome>
-        <div className="play">
-          <BouncyDiv>
-            <img src="https://picsum.photos/300/200/?random" />
-          </BouncyDiv>
-        </div>
-
-      </div>
-    );
-  }
+    )
 }
+
 export default App;
