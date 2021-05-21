@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import earnest from './coachella_copy.jpg';
 import derpPic from './derpPic.jpg'
 import './App.css';
@@ -16,6 +16,19 @@ function App() {
     const [reviewUser, setReviewUser] = useState(null);
     const [reviewText, setReviewText] = useState(null);
     const [validated, setValidated] = useState(false);
+    const [apiResponse, setApiResponse] = useState('');
+
+    // const callApi = async () => {
+    //     const response = await fetch('/api/hello');
+    //     const body = await response.json();
+    //     if (response.status !== 200) throw Error(body.message);
+
+    //     return body;
+    // };
+
+    // useEffect(() => {
+    //     callApi().then(res => setApiResponse(res.express)).catch(err => console.log(err));
+    // })
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -36,6 +49,7 @@ function App() {
                     </Row>
                     <Row className="justify-content-md-center">
                         <h3>The man, the myth, the legend</h3>
+                        {/* <p>{apiResponse}</p> */}
 
                     </Row>
                     <br />
