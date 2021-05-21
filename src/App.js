@@ -56,6 +56,23 @@ function App() {
                     <br />
                     <br />
                     <Row>
+                        <h1>Reviews</h1>
+                    </Row>
+                    <Row>
+                        <Col xs={3}>
+                            <h4>Anonymous</h4>
+                        </Col>
+                        <Col xs={9}><p>Earnest is super cool! Like the coolest!</p></Col>
+                    </Row>
+                    <Row>
+                        <Col xs={3}>
+                            <h4>Anonymous</h4>
+                        </Col>
+                        <Col xs={9}><p>Mr.Scott is super cool! Like the coolest!</p></Col>
+                    </Row>
+                    <br />
+                    <br />
+                    <Row>
                         <h1>Would you like to leave a review of Earnest Scott?</h1>
                         <Col sm={6}>
                             <Form noValidate validated={validated} onSubmit={handleSubmit} >
