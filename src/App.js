@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import earnest from './coachella_copy.jpg';
 import derpPic from './derpPic.jpg'
 import './App.css';
+import fetch from 'node-fetch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Jumbotron from 'react-bootstrap/Jumbotron'
@@ -11,11 +12,12 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+
 function App() {
     const [showDerpPic, setShowDerpPic] = useState(false);
     const [reviewUser, setReviewUser] = useState(null);
     const [reviewText, setReviewText] = useState(null);
-    const [validated, setValidated] = useState(false);
+    const [validated, setValidated] = useState(true);
     const [apiResponse, setApiResponse] = useState('');
 
     // const callApi = async () => {
@@ -30,21 +32,33 @@ function App() {
     //     callApi().then(res => setApiResponse(res.express)).catch(err => console.log(err));
     // })
 
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const body = {
+            name: reviewUser,
+            comment: reviewText
         }
-
-        setValidated(true);
+        const response = await fetch('/api/world', {
+            method: 'post',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        const resJson = await response.json();
+        console.log(resJson);
     };
+    const handleReviewerNameChange = (event) => {
+        setReviewUser(event.target.value);
+    }
+    const handleReviewerCommentChange = (event) => {
+        setReviewText(event.target.value);
+    }
     return (
         <div className="App">
             <Jumbotron fluid>
                 <Container>
                     <Row className="justify-content-md-center">
                         <h1>Earnest Scott</h1>
+                        <p>{reviewUser}</p>
 
                     </Row>
                     <Row className="justify-content-md-center">
@@ -89,17 +103,18 @@ function App() {
                     <Row>
                         <h1>Would you like to leave a review of Earnest Scott?</h1>
                         <Col sm={6}>
-                            <Form noValidate validated={validated} onSubmit={handleSubmit} >
-                                <Form.Group>
+                            {/* <Form noValidate validated={validated} onSubmit={handleSubmit} > */}
+                            <Form onSubmit={handleSubmit} >
+                                <Form.Group controlId="name">
                                     <Form.Label style={{ float: 'left' }}>Enter your name</Form.Label>
-                                    <Form.Control type="input" placeholder="Earnest Scott" required />
+                                    <Form.Control type="input" placeholder="Earnest Scott" onChange={handleReviewerNameChange} required />
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a name.
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                <Form.Group>
+                                <Form.Group controlId="comment">
                                     <Form.Label style={{ float: 'left' }}>Example textarea</Form.Label>
-                                    <Form.Control as="textarea" placeholder="sucks" rows={3} required />
+                                    <Form.Control as="textarea" placeholder="sucks" onChange={handleReviewerCommentChange} rows={3} required />
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a comment.
                                     </Form.Control.Feedback>
@@ -108,6 +123,7 @@ function App() {
                                     Submit
                                 </Button>
                             </Form>
+
                         </Col>
                     </Row>
                 </Container>
