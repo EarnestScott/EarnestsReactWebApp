@@ -7,7 +7,6 @@ const fs = require('fs');
 
 let rawdata = fs.readFileSync('./config.json');
 let config = JSON.parse(rawdata);
-console.log(config);
 mongoose.connect(`mongodb+srv://${config.dbUser}:${config.dbPass}@${config.dbUrl}/${config.dbName}?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

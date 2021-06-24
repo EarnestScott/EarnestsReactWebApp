@@ -18,27 +18,27 @@ function App() {
     const [reviewUser, setReviewUser] = useState(null);
     const [reviewText, setReviewText] = useState(null);
     const [validated, setValidated] = useState(true);
-    const [apiResponse, setApiResponse] = useState('');
+    const [apiResponse, setApiResponse] = useState([]);
 
-    // const callApi = async () => {
-    //     const response = await fetch('/api/hello');
-    //     const body = await response.json();
-    //     if (response.status !== 200) throw Error(body.message);
+    const callApi = async () => {
+        const response = await fetch('/comments');
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
 
-    //     return body;
-    // };
+        return body;
+    };
 
-    // useEffect(() => {
-    //     callApi().then(res => setApiResponse(res.express)).catch(err => console.log(err));
-    // })
+    useEffect(() => {
+        callApi().then(res => setApiResponse(res)).catch(err => console.log(err));
+    })
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const body = {
-            name: reviewUser,
+            author: reviewUser,
             comment: reviewText
         }
-        const response = await fetch('/api/world', {
+        const response = await fetch('/comments', {
             method: 'post',
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' }
@@ -98,6 +98,8 @@ function App() {
                         </Col>
                         <Col xs={9}><p>Mr.Scott is super cool! Like the coolest!</p></Col>
                     </Row>
+                    {apiResponse.map((res, index) => (<Row key={index}><Col xs={3}><h4>{res.author}</h4></Col><Col xs={9}><p>{res.comment}</p></Col></Row>))}
+
                     <br />
                     <br />
                     <Row>
