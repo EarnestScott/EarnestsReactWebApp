@@ -15,10 +15,11 @@ import Form from 'react-bootstrap/Form';
 
 function App() {
     const [showDerpPic, setShowDerpPic] = useState(false);
-    const [reviewUser, setReviewUser] = useState(null);
-    const [reviewText, setReviewText] = useState(null);
+    const [reviewUser, setReviewUser] = useState('');
+    const [reviewText, setReviewText] = useState('');
     const [validated, setValidated] = useState(true);
     const [apiResponse, setApiResponse] = useState([]);
+    const [createdComment, setCreatedComment] = useState({});
 
     const callApi = async () => {
         const response = await fetch('/comments');
@@ -30,7 +31,7 @@ function App() {
 
     useEffect(() => {
         callApi().then(res => setApiResponse(res)).catch(err => console.log(err));
-    })
+    }, [createdComment])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -44,6 +45,9 @@ function App() {
             headers: { 'Content-Type': 'application/json' }
         })
         const resJson = await response.json();
+        setCreatedComment(resJson);
+        setReviewUser('');
+        setReviewText('');
         console.log(resJson);
     };
     const handleReviewerNameChange = (event) => {
@@ -109,14 +113,14 @@ function App() {
                             <Form onSubmit={handleSubmit} >
                                 <Form.Group controlId="name">
                                     <Form.Label style={{ float: 'left' }}>Enter your name</Form.Label>
-                                    <Form.Control type="input" placeholder="Earnest Scott" onChange={handleReviewerNameChange} required />
+                                    <Form.Control type="input" placeholder="Earnest Scott" value={reviewUser} onChange={handleReviewerNameChange} required />
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a name.
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group controlId="comment">
                                     <Form.Label style={{ float: 'left' }}>Example textarea</Form.Label>
-                                    <Form.Control as="textarea" placeholder="sucks" onChange={handleReviewerCommentChange} rows={3} required />
+                                    <Form.Control as="textarea" placeholder="sucks" value={reviewText} onChange={handleReviewerCommentChange} rows={3} required />
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a comment.
                                     </Form.Control.Feedback>
